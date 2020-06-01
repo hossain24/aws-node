@@ -15,17 +15,12 @@ app.use(bodyParser.json());
 
 const uri = process.env.DB_URI;
 
-app.use('/test-data', (req, res) => {
-    const users = [
-        { id: 1, firstName: "John", lastName: "Snow" },
-        { id: 2, firstName: "Jason", lastName: "Hopkin" },
-        { id: 3, firstName: "Jonson", lastName: "Kim" },
-        { id: 4, firstName: "Josef", lastName: "Milford" },
-        { id: 5, firstName: "Jacob", lastName: "Nilsen" }
-    ];
+// Router setup
+const defaultData = require('./routes/default-data');
+const testData = require('./routes/hard-coded-data');
 
-    res.json(users);
-});
+app.use('/', defaultData);
+app.use('/test-data', testData);
 
 mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true }
 );
